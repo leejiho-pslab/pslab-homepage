@@ -18,3 +18,10 @@ export const NAV = [
 ];
 
 export const CHANNELS = ["인스타그램", "네이버 블로그", "구글 블로그", "스레드", "유튜브"];
+
+// 공식 SNS 채널 (푸터 표시 + 구조화 데이터 sameAs)
+export const SOCIAL = [
+  { label: "Instagram", href: "https://www.instagram.com/_pslab" },
+  { label: "YouTube", href: "https://www.youtube.com/@pslab2026" },
+  { label: "Threads", href: "https://www.threads.com/@_pslab" },
+];

@@ -147,6 +147,10 @@ textarea.field { resize: vertical; }
 .footer.dark .f-nav a:hover { color: var(--d-muted); }
 .footer .f-desc { margin: 0; max-width: 660px; font-size: 13px; line-height: 1.7; color: var(--muted); }
 .footer.dark .f-desc { color: var(--d-muted); }
+.footer .f-social { display: flex; gap: 18px; font-size: 13px; font-weight: 700; font-family: var(--font-mono); letter-spacing: 0.02em; }
+.footer .f-social a { transition: color 0.2s; }
+.footer .f-social a:hover { color: #555; }
+.footer.dark .f-social a:hover { color: var(--d-muted); }
 .footer .f-contact { display: flex; gap: 24px; font-size: 13px; color: var(--muted); flex-wrap: wrap; padding-top: 20px; border-top: 1px solid var(--border); }
 .footer.dark .f-contact { color: var(--d-muted); border-top-color: var(--d-border); }
 

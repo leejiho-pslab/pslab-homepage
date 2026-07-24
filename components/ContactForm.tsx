@@ -1,12 +1,14 @@
 "use client";
 import { useRef, useState, type CSSProperties } from "react";
 import { SITE } from "@/lib/site";
+import { supabase, supabaseEnabled } from "@/lib/supabase";
 
 const TOPICS = ["광고대행 전반", "퍼포먼스 마케팅", "콘텐츠 · 영상 제작", "ALWAYS ON 도입"];
 
 export default function ContactForm() {
   const [topic, setTopic] = useState(TOPICS[0]);
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
   const nameRef = useRef<HTMLInputElement | null>(null);
   const phoneRef = useRef<HTMLInputElement | null>(null);
   const msgRef = useRef<HTMLTextAreaElement | null>(null);
@@ -24,14 +26,33 @@ export default function ContactForm() {
     border: `1px solid ${active ? "#101010" : "#e0e0dc"}`,
   });
 
-  const send = () => {
-    const body = encodeURIComponent(
-      `이름/브랜드: ${nameRef.current?.value || ""}\n연락처: ${phoneRef.current?.value || ""}\n관심 분야: ${topic}\n\n${
-        msgRef.current?.value || ""
-      }`
-    );
-    const subject = encodeURIComponent(`[P.S.LAB 문의] ${nameRef.current?.value || ""}`);
+  const openMailto = (name: string, contact: string, message: string) => {
+    const body = encodeURIComponent(`이름/브랜드: ${name}\n연락처: ${contact}\n관심 분야: ${topic}\n\n${message}`);
+    const subject = encodeURIComponent(`[P.S.LAB 문의] ${name}`);
     window.location.href = `mailto:${SITE.contact.email}?subject=${subject}&body=${body}`;
+  };
+
+  const send = async () => {
+    if (sending || sent) return;
+    const name = nameRef.current?.value?.trim() || "";
+    const contact = phoneRef.current?.value?.trim() || "";
+    const message = msgRef.current?.value?.trim() || "";
+    if (!name || !contact) {
+      alert("이름/브랜드와 연락처를 입력해 주세요.");
+      return;
+    }
+    // DB 저장(설정된 경우) → 어드민에서 실시간 확인
+    if (supabaseEnabled && supabase) {
+      setSending(true);
+      const { error } = await supabase.from("inquiries").insert({ name, contact, topic, message });
+      setSending(false);
+      if (!error) {
+        setSent(true);
+        return;
+      }
+      // 저장 실패 시 메일로 폴백
+    }
+    openMailto(name, contact, message);
     setSent(true);
   };
 
@@ -92,10 +113,10 @@ export default function ContactForm() {
           fontFamily: "inherit",
         }}
       >
-        {sent ? "메일 앱이 열렸습니다 ✓" : "문의 보내기"}
+        {sending ? "전송 중…" : sent ? "접수되었습니다 ✓ 하루 안에 연락드릴게요" : "문의 보내기"}
       </button>
       <p style={{ margin: 0, fontSize: 12.5, color: "var(--muted)", textAlign: "center" }}>
-        전송 버튼을 누르면 메일 앱으로 내용이 전달됩니다
+        {supabaseEnabled ? "제출하면 담당자에게 즉시 전달됩니다" : "전송 버튼을 누르면 메일 앱으로 내용이 전달됩니다"}
       </p>
     </div>
   );

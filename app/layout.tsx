@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     description: "16년차 온라인 종합광고대행사 · SNS 채널 자동화 솔루션 ALWAYS ON 운영사",
   },
   icons: { icon: "/logo.jpg" },
+  verification: {
+    other: { "naver-site-verification": "db90dcca9a3181a5224e87e8687a596c6c02ad82" },
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

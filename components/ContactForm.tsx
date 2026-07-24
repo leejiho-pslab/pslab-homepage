@@ -1,7 +1,6 @@
 "use client";
 import { useRef, useState, type CSSProperties } from "react";
 import { SITE } from "@/lib/site";
-import { supabase, supabaseEnabled } from "@/lib/supabase";
 
 const TOPICS = ["광고대행 전반", "퍼포먼스 마케팅", "콘텐츠 · 영상 제작", "ALWAYS ON 도입"];
 
@@ -42,41 +41,22 @@ export default function ContactForm() {
       return;
     }
     setSending(true);
-    // 1) DB 저장(설정된 경우) → 어드민에서 실시간 확인
-    if (supabaseEnabled && supabase) {
-      const { error } = await supabase.from("inquiries").insert({ name, contact, topic, message });
-      if (!error) {
-        setSending(false);
-        setSent(true);
-        return;
-      }
-      // 실패 시 아래 이메일 전송으로 폴백
-    }
-    // 2) 이메일 즉시 전송(무설정) — 담당자 메일로 실시간 도착
+    // 서버(API)에서 저장·텔레그램·이메일 알림을 한 번에 처리
     try {
-      const res = await fetch(`https://formsubmit.co/ajax/${SITE.contact.email}`, {
+      const res = await fetch("/api/inquiry", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          "이름/브랜드": name,
-          연락처: contact,
-          "관심 분야": topic,
-          문의내용: message,
-          _subject: `[P.S.LAB 문의] ${name}`,
-          _template: "table",
-          _captcha: "false",
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, contact, topic, message }),
       });
-      const j = (await res.json().catch(() => ({}))) as { success?: string | boolean };
       setSending(false);
-      if (res.ok && (j.success === "true" || j.success === true)) {
+      if (res.ok) {
         setSent(true);
         return;
       }
     } catch {
       setSending(false);
     }
-    // 3) 최후: 방문자 메일 앱으로
+    // 최후: 방문자 메일 앱으로
     openMailto(name, contact, message);
     setSent(true);
   };

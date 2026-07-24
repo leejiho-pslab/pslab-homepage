@@ -3,11 +3,17 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import ContactForm from "@/components/ContactForm";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumb } from "@/lib/schema";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "광고대행이든 ALWAYS ON 도입이든, 브랜드의 상황을 남겨주시면 하루 안에 연락드립니다. P.S.LAB 이지호 소장.",
+  description:
+    "광고대행이든 ALWAYS ON 도입이든, 브랜드의 상황을 남겨주시면 하루 안에 연락드립니다. P.S.LAB 이지호 소장 · 010-9929-5736 · CEO@PSLAB.AI.KR.",
+  keywords: ["P.S.LAB 문의", "광고대행 견적", "마케팅 상담", "ALWAYS ON 도입 문의"],
+  alternates: { canonical: "/contact" },
+  openGraph: { title: "Contact — P.S.LAB", description: "풀고 싶은 문제를 들려주세요. 하루 안에 연락드립니다.", url: "/contact" },
 };
 
 export default function ContactPage() {

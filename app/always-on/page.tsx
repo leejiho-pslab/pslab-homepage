@@ -4,12 +4,17 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import RevealLink from "@/components/RevealLink";
 import HeroVideo from "@/components/HeroVideo";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumb, AO_SERVICE } from "@/lib/schema";
 import { AO_VIDEO } from "@/lib/assets";
 
 export const metadata: Metadata = {
-  title: "ALWAYS ON",
+  title: "ALWAYS ON — SNS 채널 자동화 솔루션",
   description:
-    "매일 관리하지 않아도 브랜드 자산이 쌓입니다. 인스타·네이버·구글·스레드·유튜브 5개 채널을 매일 자동 발행하는 P.S.LAB의 SNS 채널 자동화 솔루션.",
+    "매일 관리하지 않아도 브랜드 자산이 쌓입니다. 인스타그램·네이버 블로그·구글 블로그·스레드·유튜브 5개 채널을 매일 자동 발행하는 P.S.LAB의 SNS 채널 자동화 솔루션. 조사·기획·제작·발행 전 과정 자동화.",
+  keywords: ["ALWAYS ON", "SNS 자동화", "인스타그램 자동 발행", "블로그 자동화", "콘텐츠 자동화 솔루션", "SNS 채널 대행"],
+  alternates: { canonical: "/always-on" },
+  openGraph: { title: "ALWAYS ON — SNS 채널 자동화 솔루션", description: "5개 채널을 매일 자동 발행. 하루치가 아니라 1년치가 쌓입니다.", url: "/always-on" },
 };
 
 const JOURNEY = [
@@ -66,6 +71,8 @@ const dash = { margin: 0, background: "var(--d-card2)", borderRadius: 10, paddin
 export default function AlwaysOnPage() {
   return (
     <main className="dark" style={{ background: "#0c0c0c", color: "#f5f5f2" }}>
+      <JsonLd data={breadcrumb([{ name: "홈", path: "/" }, { name: "ALWAYS ON", path: "/always-on" }])} />
+      <JsonLd data={AO_SERVICE} />
       <Header active="/always-on" dark />
 
       {/* AO 히어로 */}

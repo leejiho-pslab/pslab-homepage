@@ -4,15 +4,22 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import RevealLink from "@/components/RevealLink";
 import PortfolioGrid from "@/components/PortfolioGrid";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumb } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Portfolio",
-  description: "뷰티·식품·패션·리테일·펫·B2B까지 — P.S.LAB이 브랜딩과 퍼포먼스를 함께 운영한 49개 브랜드 레퍼런스.",
+  description:
+    "뷰티·헬스·패션·리테일·식품·키즈·펫·B2B까지 — P.S.LAB이 브랜딩과 퍼포먼스 마케팅을 함께 운영한 49개 브랜드 포트폴리오. 대기업부터 신규 런칭까지 폭넓은 광고대행 레퍼런스.",
+  keywords: ["광고대행사 포트폴리오", "마케팅 성공사례", "브랜딩 레퍼런스", "퍼포먼스 마케팅 사례", "P.S.LAB 포트폴리오"],
+  alternates: { canonical: "/portfolio" },
+  openGraph: { title: "Portfolio — P.S.LAB", description: "49개 브랜드와 함께한 브랜딩·퍼포먼스 마케팅 레퍼런스.", url: "/portfolio" },
 };
 
 export default function PortfolioPage() {
   return (
     <main>
+      <JsonLd data={breadcrumb([{ name: "홈", path: "/" }, { name: "Portfolio", path: "/portfolio" }])} />
       <Header active="/portfolio" />
 
       {/* 히어로 */}

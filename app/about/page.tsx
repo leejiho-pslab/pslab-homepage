@@ -3,10 +3,16 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import RevealLink from "@/components/RevealLink";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumb } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "P.S.LAB은 16년차 온라인 마케팅·컨설팅 특화 대행사입니다. 진단·전략·실행·성장의 원스톱으로 브랜드의 문제를 풉니다.",
+  description:
+    "P.S.LAB은 16년차 온라인 마케팅·컨설팅 특화 종합광고대행사입니다. 진단·전략·실행·성장의 원스톱 프로세스로 브랜드의 문제를 풀고 지속 가능한 성장을 만듭니다.",
+  keywords: ["P.S.LAB 소개", "온라인 마케팅 대행사", "브랜딩 컨설팅", "광고대행사 회사소개", "이지호 소장"],
+  alternates: { canonical: "/about" },
+  openGraph: { title: "About — P.S.LAB", description: "16년차 온라인 마케팅·컨설팅 특화 대행사. 진단·전략·실행·성장 원스톱.", url: "/about" },
 };
 
 const SERVICES = [
@@ -40,6 +46,7 @@ const STEPS = [
 export default function AboutPage() {
   return (
     <main>
+      <JsonLd data={breadcrumb([{ name: "홈", path: "/" }, { name: "About", path: "/about" }])} />
       <Header active="/about" />
 
       {/* 히어로 */}

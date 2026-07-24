@@ -41,17 +41,42 @@ export default function ContactForm() {
       alert("이름/브랜드와 연락처를 입력해 주세요.");
       return;
     }
-    // DB 저장(설정된 경우) → 어드민에서 실시간 확인
+    setSending(true);
+    // 1) DB 저장(설정된 경우) → 어드민에서 실시간 확인
     if (supabaseEnabled && supabase) {
-      setSending(true);
       const { error } = await supabase.from("inquiries").insert({ name, contact, topic, message });
-      setSending(false);
       if (!error) {
+        setSending(false);
         setSent(true);
         return;
       }
-      // 저장 실패 시 메일로 폴백
+      // 실패 시 아래 이메일 전송으로 폴백
     }
+    // 2) 이메일 즉시 전송(무설정) — 담당자 메일로 실시간 도착
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${SITE.contact.email}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          "이름/브랜드": name,
+          연락처: contact,
+          "관심 분야": topic,
+          문의내용: message,
+          _subject: `[P.S.LAB 문의] ${name}`,
+          _template: "table",
+          _captcha: "false",
+        }),
+      });
+      const j = (await res.json().catch(() => ({}))) as { success?: string | boolean };
+      setSending(false);
+      if (res.ok && (j.success === "true" || j.success === true)) {
+        setSent(true);
+        return;
+      }
+    } catch {
+      setSending(false);
+    }
+    // 3) 최후: 방문자 메일 앱으로
     openMailto(name, contact, message);
     setSent(true);
   };
@@ -116,7 +141,7 @@ export default function ContactForm() {
         {sending ? "전송 중…" : sent ? "접수되었습니다 ✓ 하루 안에 연락드릴게요" : "문의 보내기"}
       </button>
       <p style={{ margin: 0, fontSize: 12.5, color: "var(--muted)", textAlign: "center" }}>
-        {supabaseEnabled ? "제출하면 담당자에게 즉시 전달됩니다" : "전송 버튼을 누르면 메일 앱으로 내용이 전달됩니다"}
+        제출하면 담당자에게 즉시 전달됩니다
       </p>
     </div>
   );

@@ -7,7 +7,7 @@ import HeroVideo from "@/components/HeroVideo";
 import PortfolioCarousel from "@/components/PortfolioCarousel";
 import { HERO_VIDEO, AO_VIDEO } from "@/lib/assets";
 import { INDUSTRIES } from "@/lib/works";
-import { CHANNELS } from "@/lib/site";
+import { CHANNELS, BROCHURE } from "@/lib/site";
 
 const SERVICES = [
   { no: "01", title: "퍼포먼스 마케팅", desc: "네이버·구글·메타 광고 운영과 매출 중심 최적화" },
@@ -42,6 +42,16 @@ export default function Home() {
             <Reveal as="span" delay={80} style={{ display: "block" }}>함께 문제를</Reveal>
             <Reveal as="span" delay={200} style={{ display: "block" }}>해결합시다.</Reveal>
           </h1>
+          <Reveal delay={300}>
+            <a
+              href={BROCHURE.href}
+              download={BROCHURE.filename}
+              className="btn btn-cta-dark"
+              style={{ padding: "14px 30px", fontSize: 15, display: "inline-flex", alignItems: "center", gap: 8 }}
+            >
+              ALWAYS ON 솔루션 소개서 <span aria-hidden>↓</span>
+            </a>
+          </Reveal>
           <Reveal delay={340} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16, borderTop: "1px solid rgba(16,16,16,.18)", paddingTop: 22 }}>
             <p style={{ margin: 0, fontSize: 17, color: "var(--sub)", fontWeight: 500 }}>16년차 온라인 종합광고대행사 · ALWAYS ON 운영사</p>
             <div style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: "var(--muted)", letterSpacing: ".14em", fontWeight: 600 }}>

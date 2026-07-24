@@ -6,6 +6,7 @@ import RevealLink from "@/components/RevealLink";
 import HeroVideo from "@/components/HeroVideo";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumb, AO_SERVICE } from "@/lib/schema";
+import { BROCHURE } from "@/lib/site";
 import { AO_VIDEO } from "@/lib/assets";
 
 export const metadata: Metadata = {
@@ -89,6 +90,16 @@ export default function AlwaysOnPage() {
           <h1 style={{ margin: 0, fontSize: "clamp(52px,8vw,124px)", fontWeight: 800, lineHeight: 1.02, letterSpacing: "-.02em", fontFamily: "var(--font-mono)" }}>
             <Reveal as="span" delay={80} style={{ display: "block" }}>ALWAYS ON</Reveal>
           </h1>
+          <Reveal delay={200}>
+            <a
+              href={BROCHURE.href}
+              download={BROCHURE.filename}
+              className="btn btn-cta-light"
+              style={{ padding: "14px 30px", fontSize: 15, display: "inline-flex", alignItems: "center", gap: 8 }}
+            >
+              솔루션 소개서 다운로드 <span aria-hidden>↓</span>
+            </a>
+          </Reveal>
           <Reveal delay={240} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16, borderTop: "1px solid rgba(245,245,242,.25)", paddingTop: 22 }}>
             <p style={{ margin: 0, fontSize: 19, color: "#d8d8d4", fontWeight: 500 }}>매일 관리하지 않아도, 브랜드 자산이 쌓입니다.</p>
             <p style={{ margin: 0, fontSize: 14, color: "var(--d-muted)" }}>인스타그램 · 네이버 블로그 · 구글 블로그 · 스레드 · 유튜브</p>
@@ -261,6 +272,11 @@ export default function AlwaysOnPage() {
           <Reveal as="p" style={{ margin: "0 0 26px", fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 700, letterSpacing: ".3em", color: "var(--d-muted)" }}>지속의 힘 — 365일 · 5채널 · 멈추는 날 0회</Reveal>
           <Reveal as="h2" style={{ margin: 0, fontSize: "clamp(38px,5.5vw,80px)", fontWeight: 800, letterSpacing: "-.03em", lineHeight: 1.1 }}>하루치가 아니라,<br />1년치가 쌓입니다</Reveal>
           <RevealLink href="/contact" delay={140} className="btn btn-cta-light" style={{ marginTop: 48, padding: "20px 52px", fontSize: 17 }}>도입 상담하기</RevealLink>
+          <Reveal as="p" delay={200} style={{ margin: "20px 0 0" }}>
+            <a href={BROCHURE.href} download={BROCHURE.filename} style={{ fontSize: 14, color: "#d8d8d4", textDecoration: "underline", textUnderlineOffset: 4 }}>
+              또는 솔루션 소개서 PDF 다운로드 ↓
+            </a>
+          </Reveal>
           <Reveal as="p" delay={240} style={{ margin: "22px 0 0", fontSize: 14, color: "#666" }}>월 고정비는 상담을 통해 브랜드에 맞게 산정됩니다</Reveal>
         </div>
         <Footer dark tag="SNS 채널 자동화 솔루션" />

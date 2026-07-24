@@ -11,6 +11,13 @@ export const SITE = {
   },
 };
 
+// ALWAYS ON 솔루션 소개서 (교체 시 파일만 public/downloads 에 덮어쓰면 됨)
+export const BROCHURE = {
+  href: "/downloads/pslab-alwayson-brochure.pdf",
+  filename: "P.S.LAB ALWAYS ON 솔루션 소개서.pdf",
+  label: "솔루션 소개서",
+};
+
 export const NAV = [
   { href: "/about", label: "About" },
   { href: "/portfolio", label: "Portfolio" },

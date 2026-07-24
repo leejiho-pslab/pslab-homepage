@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { NAV } from "@/lib/site";
+import { NAV, BROCHURE } from "@/lib/site";
 
 // active: 현재 페이지 경로("/about" 등) · dark: ALWAYS ON 다크 헤더
 export default function Header({ active, dark }: { active?: string; dark?: boolean }) {
@@ -32,6 +32,9 @@ export default function Header({ active, dark }: { active?: string; dark?: boole
             {n.dot && <span className="dot" />}
           </Link>
         ))}
+        <a href={BROCHURE.href} download={BROCHURE.filename} className="nav-brochure">
+          소개서 <span aria-hidden>↓</span>
+        </a>
         <Link href="/contact" className={`btn ${dark ? "btn-pill-light" : "btn-pill-dark"}`}>
           문의하기
         </Link>
@@ -58,6 +61,9 @@ export default function Header({ active, dark }: { active?: string; dark?: boole
               {n.dot && <span className="dot" />}
             </Link>
           ))}
+          <a href={BROCHURE.href} download={BROCHURE.filename} onClick={close}>
+            솔루션 소개서 <span aria-hidden>↓</span>
+          </a>
           <Link href="/contact" className={`btn ${dark ? "btn-pill-light" : "btn-pill-dark"} mm-cta`} onClick={close}>
             문의하기
           </Link>

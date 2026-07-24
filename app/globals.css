@@ -83,6 +83,10 @@ img { max-width: 100%; display: block; }
 .header.dark .nav a.active { border-bottom-color: #f5f5f2; }
 .nav .dot { width: 6px; height: 6px; border-radius: 50%; background: #101010; animation: pulse 2s infinite; display: inline-block; }
 .header.dark .nav .dot { background: #f5f5f2; }
+.nav-brochure { display: inline-flex; align-items: center; gap: 5px; border: 1px solid #d8d8d4; border-radius: 100px; padding: 8px 16px; font-size: 13.5px; font-weight: 700; transition: all 0.2s; }
+.nav-brochure:hover { border-color: #101010; }
+.header.dark .nav-brochure { border-color: #3a3a37; color: #f5f5f2; }
+.header.dark .nav-brochure:hover { border-color: #f5f5f2; }
 
 /* ---------- Mobile hamburger ---------- */
 .nav-toggle { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 42px; height: 42px; background: none; border: none; cursor: pointer; padding: 9px; }

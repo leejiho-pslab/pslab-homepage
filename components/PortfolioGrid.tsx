@@ -1,7 +1,7 @@
 "use client";
 import { useState, type CSSProperties } from "react";
 import { WORKS, CATEGORIES, catEn, type Category } from "@/lib/works";
-import { cdnImg } from "@/lib/assets";
+import FitCover from "@/components/FitCover";
 
 // 포트폴리오 필터 칩 + 49개 브랜드 그리드
 export default function PortfolioGrid() {
@@ -21,21 +21,6 @@ export default function PortfolioGrid() {
     border: `1px solid ${active ? "#101010" : "#e0e0dc"}`,
   });
 
-  const cover = (img: string): CSSProperties => ({
-    aspectRatio: "4 / 3",
-    borderRadius: 14,
-    padding: "26px 28px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    boxSizing: "border-box",
-    color: "#fff",
-    textShadow: "0 1px 14px rgba(0,0,0,.35)",
-    backgroundImage: `linear-gradient(180deg,rgba(0,0,0,.22) 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,.42) 100%),url(${cdnImg(img)})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  });
-
   return (
     <>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap", margin: "30px 0 20px" }}>
@@ -49,7 +34,7 @@ export default function PortfolioGrid() {
       <div className="grid-3 grid-tab-2" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "30px 22px" }}>
         {list.map((w) => (
           <div key={w.name}>
-            <div style={cover(w.img)}>
+            <FitCover img={w.img} aspect="4 / 3">
               <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, fontWeight: 700, letterSpacing: ".22em", opacity: 0.55 }}>
                 {catEn[w.cat]}
               </span>
@@ -64,7 +49,7 @@ export default function PortfolioGrid() {
               >
                 {w.name}
               </span>
-            </div>
+            </FitCover>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginTop: 15, gap: 12 }}>
               <span style={{ fontWeight: 800, fontSize: 17 }}>{w.name}</span>
               <span style={{ fontSize: 12.5, color: "var(--muted)", whiteSpace: "nowrap" }}>{w.cat}</span>

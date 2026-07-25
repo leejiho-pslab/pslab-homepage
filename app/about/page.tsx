@@ -63,7 +63,7 @@ export default function AboutPage() {
 
       {/* 서비스 상세 */}
       <section className="pad-sec" style={{ padding: "0 40px 150px", maxWidth: 1200, margin: "0 auto" }}>
-        <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 22 }}>
+        <div className="grid-3 grid-tab-2" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 22 }}>
           {SERVICES.map((s) => (
             <Reveal key={s.no} className="card-lift" style={{ border: "1px solid var(--border)", borderRadius: 16, padding: "44px 34px", background: "#fff" }}>
               <p style={{ margin: 0, fontFamily: "var(--font-mono)", fontWeight: 700, fontSize: 13, color: "var(--hint)" }}>{s.no}</p>
@@ -87,7 +87,7 @@ export default function AboutPage() {
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <Reveal as="p" style={{ margin: "0 0 18px", fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 700, letterSpacing: ".3em", color: "var(--d-muted)" }}>HOW WE WORK</Reveal>
           <Reveal as="h2" style={{ margin: "0 0 70px", fontSize: "clamp(32px,4.5vw,58px)", fontWeight: 800, letterSpacing: "-.02em" }}>함께, 브랜드의 문제를 해결합니다</Reveal>
-          <div className="grid-4" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1, background: "var(--d-border)", border: "1px solid var(--d-border)" }}>
+          <div className="grid-4 grid-tab-2" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1, background: "var(--d-border)", border: "1px solid var(--d-border)" }}>
             {STEPS.map((st) => (
               <Reveal key={st.no} style={{ background: "var(--d-card)", padding: "40px 30px", minHeight: 200 }}>
                 <p style={{ margin: 0, fontFamily: "var(--font-mono)", fontWeight: 700, fontSize: 13, color: "#666" }}>{st.no}</p>

@@ -56,6 +56,17 @@ async function saveToSupabase(name: string, contact: string, topic: string, mess
   } catch {}
 }
 
+// 간단한 IP당 속도 제한(같은 IP가 1분에 5건 초과 시 차단) — 스팸 폭주 방지
+const hits = new Map<string, number[]>();
+function rateLimited(ip: string) {
+  const now = Date.now();
+  const arr = (hits.get(ip) || []).filter((t) => now - t < 60_000);
+  arr.push(now);
+  hits.set(ip, arr);
+  if (hits.size > 1000) hits.clear(); // 메모리 보호
+  return arr.length > 5;
+}
+
 export async function POST(req: Request) {
   let body: Record<string, unknown> = {};
   try {
@@ -66,6 +77,15 @@ export async function POST(req: Request) {
   const contact = String(body.contact ?? "").trim().slice(0, 200);
   const topic = String(body.topic ?? "").trim().slice(0, 100);
   const message = String(body.message ?? "").trim().slice(0, 5000);
+  const honeypot = String(body.website ?? "").trim();
+
+  // 허니팟이 채워졌으면 봇 — 조용히 성공 응답만 반환(아무 처리 안 함)
+  if (honeypot) return NextResponse.json({ ok: true });
+
+  const ip = (req.headers.get("x-forwarded-for") || "unknown").split(",")[0].trim();
+  if (rateLimited(ip)) {
+    return NextResponse.json({ ok: false, error: "잠시 후 다시 시도해 주세요." }, { status: 429 });
+  }
 
   if (!name || !contact) {
     return NextResponse.json({ ok: false, error: "이름/연락처를 입력해 주세요." }, { status: 400 });

@@ -112,7 +112,7 @@ export default function AlwaysOnPage() {
         <Reveal as="p" style={eyebrow}>왜 온라인 채널인가</Reveal>
         <Reveal as="h2" style={{ margin: "0 0 26px", fontSize: "clamp(32px,4.5vw,58px)", fontWeight: 800, letterSpacing: "-.02em" }}>손님이 단골이 되는 길목마다,<br />채널이 일합니다</Reveal>
         <Reveal as="p" style={{ margin: "0 0 70px", color: "var(--d-muted)", fontSize: 16.5, lineHeight: 1.7, maxWidth: 640 }}>손님은 발견 → 검색 → 확신 → 단골의 여정을 지나갑니다. 다섯 채널은 각자 다른 길목을 지킵니다.</Reveal>
-        <div className="grid-4" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1, background: "var(--d-border)", border: "1px solid var(--d-border)" }}>
+        <div className="grid-4 grid-tab-2" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1, background: "var(--d-border)", border: "1px solid var(--d-border)" }}>
           {JOURNEY.map((j) => (
             <Reveal key={j.no} style={{ background: "var(--d-card)", padding: "40px 30px", minHeight: 230 }}>
               <p style={{ margin: 0, fontFamily: "var(--font-mono)", fontWeight: 800, fontSize: 34, color: "#3a3a37" }}>{j.no}</p>
@@ -161,7 +161,7 @@ export default function AlwaysOnPage() {
           <Reveal as="p" style={eyebrow}>어떻게 돌아가나요</Reveal>
           <Reveal as="h2" style={{ margin: "0 0 26px", fontSize: "clamp(32px,4.5vw,58px)", fontWeight: 800, letterSpacing: "-.02em" }}>네 단계가 매일,<br />스스로 반복됩니다</Reveal>
           <Reveal as="p" style={{ margin: "0 0 70px", color: "var(--d-muted)", fontSize: 16.5, lineHeight: 1.7, maxWidth: 640 }}>15년 이상 브랜딩·마케팅 전문가가 브랜드 방향을 직접 잡아드립니다. 그 다음부터는 이 네 단계가 매일 자동으로 돌아갑니다.</Reveal>
-          <div className="grid-4" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20 }}>
+          <div className="grid-4 grid-tab-2" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20 }}>
             {STEPS.map((st) => (
               <Reveal key={st.no} className="step-card" style={{ position: "relative", border: "1px solid var(--d-border)", borderRadius: 16, padding: "38px 30px", minHeight: 220, background: "#0c0c0c" }}>
                 <p style={{ margin: 0, fontFamily: "var(--font-mono)", fontWeight: 700, fontSize: 12, letterSpacing: ".2em", color: "#666" }}>{st.no}</p>
@@ -251,7 +251,7 @@ export default function AlwaysOnPage() {
       <section className="pad-sec" style={{ padding: "170px 40px", maxWidth: 1200, margin: "0 auto" }}>
         <Reveal as="p" style={eyebrow}>돈으로 환산하면</Reveal>
         <Reveal as="h2" style={{ margin: "0 0 70px", fontSize: "clamp(32px,4.5vw,58px)", fontWeight: 800, letterSpacing: "-.02em" }}>이만큼을 대신합니다</Reveal>
-        <div className="grid-4" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1, background: "var(--d-border)", border: "1px solid var(--d-border)" }}>
+        <div className="grid-4 grid-tab-2" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1, background: "var(--d-border)", border: "1px solid var(--d-border)" }}>
           {VALUES.map((v) => (
             <Reveal key={v.label} style={{ background: "var(--d-card)", padding: "38px 30px" }}>
               <p style={{ margin: "0 0 16px", fontSize: 14, color: "var(--d-muted)" }}>{v.label}</p>

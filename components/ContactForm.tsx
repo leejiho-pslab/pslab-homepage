@@ -11,6 +11,7 @@ export default function ContactForm() {
   const nameRef = useRef<HTMLInputElement | null>(null);
   const phoneRef = useRef<HTMLInputElement | null>(null);
   const msgRef = useRef<HTMLTextAreaElement | null>(null);
+  const hpRef = useRef<HTMLInputElement | null>(null); // 허니팟(스팸봇 차단)
 
   const chip = (active: boolean): CSSProperties => ({
     borderRadius: 100,
@@ -46,7 +47,7 @@ export default function ContactForm() {
       const res = await fetch("/api/inquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, contact, topic, message }),
+        body: JSON.stringify({ name, contact, topic, message, website: hpRef.current?.value || "" }),
       });
       setSending(false);
       if (res.ok) {
@@ -77,6 +78,16 @@ export default function ContactForm() {
         height: "fit-content",
       }}
     >
+      {/* 허니팟: 사람에게는 보이지 않는 칸 — 봇이 채우면 서버에서 무시 */}
+      <input
+        ref={hpRef}
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        style={{ position: "absolute", left: -9999, width: 1, height: 1, opacity: 0 }}
+      />
       <div style={groupStyle}>
         <label style={labelStyle}>이름 / 브랜드</label>
         <input ref={nameRef} className="field" placeholder="예) 홍길동 / 마이브랜드" />

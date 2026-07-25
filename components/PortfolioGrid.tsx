@@ -46,7 +46,7 @@ export default function PortfolioGrid() {
         ))}
       </div>
       <p style={{ margin: "0 0 40px", fontSize: 13.5, color: "var(--muted)" }}>{list.length}개 프로젝트</p>
-      <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "30px 22px" }}>
+      <div className="grid-3 grid-tab-2" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "30px 22px" }}>
         {list.map((w) => (
           <div key={w.name}>
             <div style={cover(w.img)}>

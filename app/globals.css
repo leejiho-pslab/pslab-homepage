@@ -161,7 +161,12 @@ textarea.field { resize: vertical; }
 /* ===========================================================
    반응형 (모바일/태블릿)
    =========================================================== */
+/* 태블릿: 3~4열 카드 그리드가 좁아 텍스트가 빡빡해지는 것 완화 → 2열 */
+@media (max-width: 1024px) and (min-width: 701px) {
+  .grid-tab-2 { grid-template-columns: repeat(2, 1fr) !important; }
+}
 @media (max-width: 900px) {
+  .chan-row { grid-template-columns: 1fr !important; gap: 14px !important; }
   .header { padding: 11px 18px; }
   .header .brand-tag { display: none; }
   .header .brand-logo { height: 36px; width: 36px; }

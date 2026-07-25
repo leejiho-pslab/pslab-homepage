@@ -122,6 +122,10 @@ img { max-width: 100%; display: block; }
 }
 .svc-row:hover { padding-left: 28px; background: #f4f4f1; }
 
+/* ---------- Magazine rows ---------- */
+.mag-row { transition: padding-left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s; }
+.mag-row:hover { padding-left: 22px !important; background: #f4f4f1; }
+
 /* ---------- Cards ---------- */
 .card-lift { transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s; }
 .card-lift:hover { transform: translateY(-8px); box-shadow: 0 24px 48px -24px rgba(16, 16, 16, 0.18); }
@@ -161,6 +165,11 @@ textarea.field { resize: vertical; }
 /* ===========================================================
    반응형 (모바일/태블릿)
    =========================================================== */
+/* 데스크톱 좁은 폭: 메뉴가 늘어난 만큼 헤더 여백 보정 */
+@media (max-width: 1180px) and (min-width: 901px) {
+  .header .brand-tag { display: none; }
+  .nav { gap: 22px; }
+}
 /* 태블릿: 3~4열 카드 그리드가 좁아 텍스트가 빡빡해지는 것 완화 → 2열 */
 @media (max-width: 1024px) and (min-width: 701px) {
   .grid-tab-2 { grid-template-columns: repeat(2, 1fr) !important; }

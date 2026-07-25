@@ -22,6 +22,7 @@ export const NAV = [
   { href: "/about", label: "About" },
   { href: "/portfolio", label: "Portfolio" },
   { href: "/always-on", label: "ALWAYS ON", dot: true },
+  { href: "/magazine", label: "Magazine" },
 ];
 
 export const CHANNELS = ["인스타그램", "네이버 블로그", "구글 블로그", "스레드", "유튜브"];

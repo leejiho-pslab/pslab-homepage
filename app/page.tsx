@@ -6,8 +6,13 @@ import CountUp from "@/components/CountUp";
 import HeroVideo from "@/components/HeroVideo";
 import PortfolioCarousel from "@/components/PortfolioCarousel";
 import { HERO_VIDEO, AO_VIDEO } from "@/lib/assets";
+import Link from "next/link";
 import { INDUSTRIES } from "@/lib/works";
 import { CHANNELS, BROCHURE } from "@/lib/site";
+import { getAllArticles } from "@/lib/magazine";
+
+// 매거진 최신 글이 홈에 자동 반영되도록 1시간마다 재생성
+export const revalidate = 3600;
 
 const SERVICES = [
   { no: "01", title: "퍼포먼스 마케팅", desc: "네이버·구글·메타 광고 운영과 매출 중심 최적화" },
@@ -22,6 +27,7 @@ const AO_PROMISES = [
 ];
 
 export default function Home() {
+  const latest = getAllArticles().slice(0, 3);
   return (
     <main>
       <Header />
@@ -171,6 +177,34 @@ export default function Home() {
           </RevealLink>
         </div>
       </section>
+
+      {/* 매거진 최신 글 */}
+      {latest.length > 0 && (
+        <section className="pad-sec" style={{ padding: "150px 40px 120px", maxWidth: 1200, margin: "0 auto" }}>
+          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 20, flexWrap: "wrap", marginBottom: 40 }}>
+            <div>
+              <Reveal as="p" className="eyebrow" style={{ margin: "0 0 18px" }}>MAGAZINE</Reveal>
+              <Reveal as="h2" style={{ margin: 0, fontFamily: "var(--font-display)", fontSize: "clamp(30px,4vw,52px)", fontWeight: 700, letterSpacing: "-.02em" }}>
+                마케팅 &amp; 트렌드
+              </Reveal>
+            </div>
+            <RevealLink href="/magazine" className="btn btn-outline-dark" style={{ flexShrink: 0, padding: "12px 26px", fontSize: 14 }}>
+              전체 보기 →
+            </RevealLink>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            {latest.map((a) => (
+              <Link key={a.slug} href={`/magazine/${a.slug}`} className="mag-row" style={{ display: "block", padding: "26px 8px", borderTop: "1px solid var(--border)" }}>
+                <div style={{ display: "flex", alignItems: "baseline", gap: 14, flexWrap: "wrap" }}>
+                  <span style={{ fontSize: 12.5, color: "var(--hint)", fontFamily: "var(--font-mono)", whiteSpace: "nowrap" }}>{a.date.replace(/-/g, ". ")}.</span>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: "var(--muted)" }}>{a.category}</span>
+                </div>
+                <p style={{ margin: "8px 0 0", fontSize: "clamp(17px,2vw,21px)", fontWeight: 800, letterSpacing: "-.01em", lineHeight: 1.4 }}>{a.title}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* 엔딩 CTA + 푸터 */}
       <section

@@ -28,7 +28,7 @@ export default function FitCover({
         style={{
           position: "absolute",
           inset: 0,
-          padding: "26px 28px",
+          padding: "clamp(12px, 3.2vw, 28px)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",

@@ -15,7 +15,8 @@ export default function PortfolioCarousel() {
   const touchX = useRef<number | null>(null);
 
   useEffect(() => {
-    const calc = () => setPerView(window.innerWidth <= 700 ? 1 : window.innerWidth <= 1024 ? 2 : 3);
+    // 모바일도 2장 동시 노출(한눈에 여러 개), 데스크톱 3장
+    const calc = () => setPerView(window.innerWidth <= 1024 ? 2 : 3);
     calc();
     window.addEventListener("resize", calc);
     return () => window.removeEventListener("resize", calc);
@@ -118,18 +119,18 @@ export default function PortfolioCarousel() {
               style={{ flex: `0 0 ${100 / perView}%`, boxSizing: "border-box", padding: "0 11px", display: "block" }}
             >
               <FitCover img={w.img} aspect="4 / 5">
-                <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, fontWeight: 700, letterSpacing: ".22em", opacity: 0.55 }}>
+                <span className="hide-sm" style={{ fontFamily: "var(--font-mono)", fontSize: 11, fontWeight: 700, letterSpacing: ".22em", opacity: 0.55 }}>
                   {catEn[w.cat]}
                 </span>
-                <span style={{ fontSize: "clamp(26px,2.6vw,38px)", fontWeight: 800, letterSpacing: "-.02em", lineHeight: 1.15 }}>
+                <span style={{ marginTop: "auto", fontSize: "clamp(17px,2.6vw,38px)", fontWeight: 800, letterSpacing: "-.02em", lineHeight: 1.15 }}>
                   {w.name}
                 </span>
               </FitCover>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginTop: 16, gap: 10 }}>
-                <span style={{ fontWeight: 800, fontSize: 19 }}>{w.name}</span>
-                <span style={{ fontSize: 13, color: "var(--muted)", whiteSpace: "nowrap" }}>{w.cat}</span>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginTop: 14, gap: 10, flexWrap: "wrap" }}>
+                <span style={{ fontWeight: 800, fontSize: "clamp(15px,1.6vw,19px)" }}>{w.name}</span>
+                <span style={{ fontSize: 12.5, color: "var(--muted)", whiteSpace: "nowrap" }}>{w.cat}</span>
               </div>
-              <p style={{ margin: "6px 0 0", fontSize: 14.5, color: "var(--muted)", lineHeight: 1.55 }}>{w.desc}</p>
+              <p className="hide-sm" style={{ margin: "6px 0 0", fontSize: 14.5, color: "var(--muted)", lineHeight: 1.55 }}>{w.desc}</p>
             </Link>
           ))}
         </div>

@@ -45,8 +45,8 @@ export default function Home() {
             P.S.LAB — 문제 해결 연구소
           </Reveal>
           <h1 style={{ margin: 0, fontFamily: "var(--font-display)", fontSize: "clamp(48px,7.5vw,116px)", fontWeight: 700, lineHeight: 1.08, letterSpacing: "-.02em" }}>
-            <Reveal as="span" delay={80} style={{ display: "block" }}>함께 문제를</Reveal>
-            <Reveal as="span" delay={200} style={{ display: "block" }}>해결합시다.</Reveal>
+            <Reveal as="span" delay={80} className="shine-text" style={{ display: "block" }}>함께 문제를</Reveal>
+            <Reveal as="span" delay={200} className="shine-text" style={{ display: "block" }}>해결합시다.</Reveal>
           </h1>
           <Reveal delay={300}>
             <a

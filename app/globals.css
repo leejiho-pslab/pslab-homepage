@@ -58,7 +58,36 @@ img { max-width: 100%; display: block; }
 /* ---------- Layout helpers ---------- */
 .wrap { max-width: 1200px; margin: 0 auto; }
 .wrap-wide { max-width: 1240px; margin: 0 auto; }
-.eyebrow { margin: 0; font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 0.3em; color: var(--muted); }
+.eyebrow { margin: 0; font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 0.3em; color: var(--muted); position: relative; padding-bottom: 10px; }
+/* 섹션 라벨 리빌 시 밑줄이 자라나는 모션 */
+.eyebrow::after { content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: #101010; transition: width 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.25s; }
+.eyebrow.reveal.in::after { width: 28px; }
+
+/* ---------- 헤드라인 샤인 스윕 (빛이 훑고 지나가는 텍스트 모션) ---------- */
+@keyframes shine-sweep { 0%, 45% { background-position: 130% 0; } 80%, 100% { background-position: -80% 0; } }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .shine-text {
+    background-image: linear-gradient(110deg, #101010 0%, #101010 42%, #9a9a94 50%, #101010 58%, #101010 100%);
+    background-size: 260% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: shine-sweep 5.5s ease-in-out infinite;
+  }
+  .shine-text-dark {
+    background-image: linear-gradient(110deg, #f5f5f2 0%, #f5f5f2 42%, #86868a 50%, #f5f5f2 58%, #f5f5f2 100%);
+    background-size: 260% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: shine-sweep 5.5s ease-in-out infinite;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shine-text, .shine-text-dark { animation: none; }
+}
 
 /* ---------- Header ---------- */
 .header {
@@ -195,4 +224,8 @@ textarea.field { resize: vertical; }
   .stack-sm { grid-template-columns: 1fr !important; gap: 40px !important; }
   .chan-row { grid-template-columns: 1fr !important; gap: 14px !important; }
   h1 { word-break: keep-all; }
+  /* 모바일 텍스트 밀도 정리: 카드 설명문 숨김(이름·업종만 노출) */
+  .hide-sm { display: none !important; }
+  /* 포트폴리오 그리드: 모바일 2열로 한눈에 여러 개 */
+  .grid-mob-2 { grid-template-columns: repeat(2, 1fr) !important; gap: 22px 12px !important; }
 }

@@ -88,7 +88,7 @@ export default function AlwaysOnPage() {
         <div className="pad-sec" style={{ position: "relative", width: "100%", padding: "0 40px 72px", display: "flex", flexDirection: "column", gap: 26 }}>
           <Reveal as="p" style={{ margin: 0, fontFamily: "var(--font-mono)", fontWeight: 700, fontSize: 13, letterSpacing: ".32em", color: "#d8d8d4" }}>P.S.LAB — SNS 채널 자동화 솔루션</Reveal>
           <h1 style={{ margin: 0, fontSize: "clamp(52px,8vw,124px)", fontWeight: 800, lineHeight: 1.02, letterSpacing: "-.02em", fontFamily: "var(--font-mono)" }}>
-            <Reveal as="span" delay={80} style={{ display: "block" }}>ALWAYS ON</Reveal>
+            <Reveal as="span" delay={80} className="shine-text-dark" style={{ display: "block" }}>ALWAYS ON</Reveal>
           </h1>
           <Reveal delay={200}>
             <a

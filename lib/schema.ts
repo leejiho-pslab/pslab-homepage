@@ -65,12 +65,13 @@ export const AO_SERVICE = {
   "@context": "https://schema.org",
   "@type": "Service",
   name: "ALWAYS ON",
+  alternateName: ["얼웨이즈온", "올웨이즈온", "Always On", "always on"],
   serviceType: "SNS 채널 자동화 솔루션",
   provider: { "@id": `${BASE}/#org` },
   areaServed: { "@type": "Country", name: "대한민국" },
   url: `${BASE}/always-on`,
   description:
-    "인스타그램·네이버 블로그·구글 블로그·스레드·유튜브 5개 채널을 매일 자동 발행하는 SNS 채널 자동화 솔루션. 조사·기획·제작·발행을 자동화해 브랜드 콘텐츠 자산을 매일 쌓습니다.",
+    "ALWAYS ON(얼웨이즈온)은 인스타그램·네이버 블로그·구글 블로그·스레드·유튜브 5개 채널을 매일 자동 발행하는 P.S.LAB의 SNS 채널 자동화 솔루션입니다. 조사·기획·제작·발행을 자동화해 브랜드 콘텐츠 자산을 매일 쌓습니다.",
 };
 
 // 빵부스러기(BreadcrumbList) 생성기

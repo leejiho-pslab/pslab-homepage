@@ -10,10 +10,10 @@ import { BROCHURE } from "@/lib/site";
 import { AO_VIDEO } from "@/lib/assets";
 
 export const metadata: Metadata = {
-  title: "ALWAYS ON — SNS 채널 자동화 솔루션",
+  title: "ALWAYS ON(얼웨이즈온) — SNS 채널 자동화 솔루션",
   description:
-    "매일 관리하지 않아도 브랜드 자산이 쌓입니다. 인스타그램·네이버 블로그·구글 블로그·스레드·유튜브 5개 채널을 매일 자동 발행하는 P.S.LAB의 SNS 채널 자동화 솔루션. 조사·기획·제작·발행 전 과정 자동화.",
-  keywords: ["ALWAYS ON", "SNS 자동화", "인스타그램 자동 발행", "블로그 자동화", "콘텐츠 자동화 솔루션", "SNS 채널 대행"],
+    "ALWAYS ON(얼웨이즈온) — 매일 관리하지 않아도 브랜드 자산이 쌓입니다. 인스타그램·네이버 블로그·구글 블로그·스레드·유튜브 5개 채널을 매일 자동 발행하는 P.S.LAB의 SNS 채널 자동화 솔루션. 조사·기획·제작·발행 전 과정 자동화.",
+  keywords: ["ALWAYS ON", "얼웨이즈온", "올웨이즈온", "always on", "SNS 자동화", "인스타그램 자동 발행", "블로그 자동화", "콘텐츠 자동화 솔루션", "SNS 채널 대행", "P.S.LAB", "pslab"],
   alternates: { canonical: "/always-on" },
   openGraph: { title: "ALWAYS ON — SNS 채널 자동화 솔루션", description: "5개 채널을 매일 자동 발행. 하루치가 아니라 1년치가 쌓입니다.", url: "/always-on" },
 };
@@ -101,7 +101,7 @@ export default function AlwaysOnPage() {
             </a>
           </Reveal>
           <Reveal delay={240} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16, borderTop: "1px solid rgba(245,245,242,.25)", paddingTop: 22 }}>
-            <p style={{ margin: 0, fontSize: 19, color: "#d8d8d4", fontWeight: 500 }}>매일 관리하지 않아도, 브랜드 자산이 쌓입니다.</p>
+            <p style={{ margin: 0, fontSize: 19, color: "#d8d8d4", fontWeight: 500 }}>ALWAYS ON(얼웨이즈온) — 매일 관리하지 않아도, 브랜드 자산이 쌓입니다.</p>
             <p style={{ margin: 0, fontSize: 14, color: "var(--d-muted)" }}>인스타그램 · 네이버 블로그 · 구글 블로그 · 스레드 · 유튜브</p>
           </Reveal>
         </div>

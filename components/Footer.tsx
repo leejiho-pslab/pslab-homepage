@@ -28,8 +28,8 @@ export default function Footer({
         </nav>
       </div>
       <p className="f-desc">
-        P.S.LAB(문제 해결 연구소)는 16년차 온라인 종합광고대행사입니다. 네이버·구글·메타 퍼포먼스 마케팅, 브랜딩 컨설팅,
-        콘텐츠·영상 제작과 SNS 채널 자동화 솔루션 ALWAYS ON으로 브랜드의 문제를 풀고 성과로 증명합니다.
+        P.S.LAB(피에스랩 · 문제해결연구소)는 16년차 온라인 종합광고대행사입니다. 네이버·구글·메타 퍼포먼스 마케팅, 브랜딩
+        컨설팅, 콘텐츠·영상 제작과 SNS 채널 자동화 솔루션 ALWAYS ON(얼웨이즈온)으로 브랜드의 문제를 풀고 성과로 증명합니다.
       </p>
       <div className="f-social">
         {SOCIAL.map((s) => (

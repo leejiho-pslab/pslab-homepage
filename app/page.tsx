@@ -239,8 +239,8 @@ export default function Home() {
             <Link href="/contact" className="btn btn-cta-light cta-glow" style={{ padding: "19px 52px", fontSize: 17 }}>
               문제 들려주기 →
             </Link>
-            <a href="tel:010-9929-5736" className="btn" style={{ padding: "18px 34px", fontSize: 15, border: "1px solid #3a3a37", color: "#f5f5f2" }}>
-              ☎ 010-9929-5736
+            <a href="mailto:CEO@PSLAB.AI.KR" className="btn" style={{ padding: "18px 34px", fontSize: 15, border: "1px solid #3a3a37", color: "#f5f5f2" }}>
+              ✉ CEO@PSLAB.AI.KR
             </a>
           </Reveal>
           <Reveal as="p" delay={400} style={{ margin: "26px 0 0", display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13.5, color: "var(--d-muted)" }}>

@@ -30,7 +30,8 @@ async function notifyTelegram(name: string, contact: string, topic: string, mess
 
 async function notifyEmail(name: string, contact: string, topic: string, message: string) {
   try {
-    await fetch(`https://formsubmit.co/ajax/${SITE.contact.email}`, {
+    // FormSubmit은 소문자 주소 기준으로 동작 — 대문자 주소로 인한 미발송 방지
+    await fetch(`https://formsubmit.co/ajax/${SITE.contact.email.toLowerCase()}`, {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({

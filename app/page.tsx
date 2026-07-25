@@ -206,23 +206,49 @@ export default function Home() {
         </section>
       )}
 
-      {/* 엔딩 CTA + 푸터 */}
-      <section
-        style={{
-          position: "relative",
-          background:
-            "radial-gradient(ellipse 80% 60% at 50% 30%,#f3f2ee 0%,rgba(243,242,238,0) 70%),radial-gradient(ellipse 50% 40% at 20% 85%,#f0efe9 0%,rgba(240,239,233,0) 70%),radial-gradient(ellipse 45% 40% at 82% 70%,#f2f0ec 0%,rgba(242,240,236,0) 70%),#fbfbfa",
-        }}
-      >
-        <div className="pad-sec" style={{ maxWidth: 1200, margin: "0 auto", padding: "190px 40px 110px", textAlign: "center" }}>
-          <Reveal as="p" style={{ margin: "0 0 20px", fontFamily: "var(--font-mono)", fontSize: 10, fontWeight: 700, letterSpacing: ".32em", color: "var(--hint)" }}>PROBLEM SOLVING LAB</Reveal>
-          <Reveal as="h2" delay={80} style={{ margin: 0, fontSize: "clamp(24px,2.6vw,38px)", fontWeight: 800, letterSpacing: "-.02em", lineHeight: 1.28 }}>
+      {/* 엔딩 CTA + 푸터 — 다크 피날레 */}
+      <section className="dark" style={{ position: "relative", background: "#0c0c0c", color: "#f5f5f2", overflow: "hidden" }}>
+        {/* 떠다니는 글로우 배경 */}
+        <div className="cta-blob cta-blob-a" />
+        <div className="cta-blob cta-blob-b" />
+
+        {/* 거대 아웃라인 텍스트 마퀴 */}
+        <div style={{ borderBottom: "1px solid #1a1a18", padding: "26px 0", overflow: "hidden", whiteSpace: "nowrap" }}>
+          <div style={{ display: "inline-flex", animation: "marquee 26s linear infinite" }}>
+            {[0, 1].map((k) => (
+              <span
+                key={k}
+                className="outline-text"
+                style={{ fontFamily: "var(--font-mono)", fontWeight: 800, fontSize: "clamp(44px,6vw,84px)", letterSpacing: ".04em", paddingRight: 40 }}
+              >
+                SOLVE YOUR PROBLEM&nbsp;✳&nbsp;P.S.LAB&nbsp;✳&nbsp;SOLVE YOUR PROBLEM&nbsp;✳&nbsp;ALWAYS ON&nbsp;✳&nbsp;
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="pad-sec" style={{ position: "relative", maxWidth: 1200, margin: "0 auto", padding: "130px 40px 110px", textAlign: "center" }}>
+          <Reveal as="p" style={{ margin: "0 0 22px", fontFamily: "var(--font-mono)", fontSize: 11, fontWeight: 700, letterSpacing: ".32em", color: "var(--d-muted)" }}>PROBLEM SOLVING LAB</Reveal>
+          <Reveal as="h2" delay={80} className="shine-text-dark" style={{ margin: 0, fontSize: "clamp(32px,4.6vw,64px)", fontWeight: 800, letterSpacing: "-.03em", lineHeight: 1.18 }}>
             어떤 문제를<br />마주하고 계신가요?
           </Reveal>
-          <Reveal as="p" delay={200} style={{ margin: "20px 0 0", fontSize: 14, lineHeight: 1.8, color: "var(--muted)", textWrap: "pretty" }}>막막한 고민도 좋습니다. 들려주시는 순간, 연구소의 일이 시작됩니다.</Reveal>
-          <RevealLink href="/contact" delay={300} className="btn btn-cta-dark" style={{ marginTop: 36, padding: "15px 38px", fontSize: 14 }}>문제 들려주기</RevealLink>
+          <Reveal as="p" delay={200} style={{ margin: "24px 0 0", fontSize: 16, lineHeight: 1.8, color: "var(--d-muted)", textWrap: "pretty" }}>
+            막막한 고민도 좋습니다. 들려주시는 순간, 연구소의 일이 시작됩니다.
+          </Reveal>
+          <Reveal delay={300} style={{ marginTop: 44, display: "flex", justifyContent: "center", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
+            <Link href="/contact" className="btn btn-cta-light cta-glow" style={{ padding: "19px 52px", fontSize: 17 }}>
+              문제 들려주기 →
+            </Link>
+            <a href="tel:010-9929-5736" className="btn" style={{ padding: "18px 34px", fontSize: 15, border: "1px solid #3a3a37", color: "#f5f5f2" }}>
+              ☎ 010-9929-5736
+            </a>
+          </Reveal>
+          <Reveal as="p" delay={400} style={{ margin: "26px 0 0", display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13.5, color: "var(--d-muted)" }}>
+            <span style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--ok)", animation: "pulse 1.6s infinite" }} />
+            지금 문의하면 24시간 안에 회신드립니다
+          </Reveal>
         </div>
-        <Footer />
+        <Footer dark />
       </section>
     </main>
   );

@@ -89,6 +89,19 @@ img { max-width: 100%; display: block; }
   .shine-text, .shine-text-dark { animation: none; }
 }
 
+/* ---------- 엔딩 CTA (다크 피날레) ---------- */
+.outline-text { color: transparent; -webkit-text-stroke: 1px #2e2e2c; }
+@keyframes blob-drift { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(70px, 40px) scale(1.12); } }
+.cta-blob { position: absolute; border-radius: 50%; filter: blur(90px); pointer-events: none; }
+.cta-blob-a { width: 520px; height: 520px; background: rgba(118, 108, 255, 0.16); top: -140px; left: -120px; animation: blob-drift 16s ease-in-out infinite; }
+.cta-blob-b { width: 460px; height: 460px; background: rgba(255, 150, 90, 0.13); bottom: -120px; right: -100px; animation: blob-drift 19s ease-in-out infinite reverse; }
+@keyframes cta-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(245, 245, 242, 0.35); } 60% { box-shadow: 0 0 0 18px rgba(245, 245, 242, 0); } }
+.cta-glow { animation: cta-pulse 2.4s ease-out infinite; transition: transform 0.25s; }
+.cta-glow:hover { transform: translateY(-3px) scale(1.03); }
+@media (prefers-reduced-motion: reduce) {
+  .cta-blob-a, .cta-blob-b, .cta-glow { animation: none; }
+}
+
 /* ---------- Header ---------- */
 .header {
   position: fixed; top: 0; left: 0; right: 0; z-index: 50;

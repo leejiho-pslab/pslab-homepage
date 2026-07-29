@@ -1,0 +1,91 @@
+name: vendor videos (배경 영상 자체 호스팅 이관)
+
+# 히어로/ALWAYS ON 배경 영상을 외부 CDN(CloudFront)에서 받아 public/videos/ 로
+# 커밋한다. 외부 URL은 만료 가능성이 있어(lib/assets.ts 주석 참고) 저장소에
+# 넣어두고 자체 호스팅으로 서빙하기 위한 일회성 작업.
+#
+# 사용법: Actions 탭에서 수동 실행(workflow_dispatch). 이관이 끝나면
+# 이 워크플로는 삭제해도 된다.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  vendor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      # lib/assets.ts 에 적힌 URL을 그대로 읽어 쓴다 — 워크플로에 URL을 중복
+      # 하드코딩하면 나중에 원본이 바뀌었을 때 조용히 어긋난다.
+      - name: 원본 URL 추출
+        id: urls
+        run: |
+          HERO=$(grep -A2 'export const HERO_VIDEO' lib/assets.ts | grep -o 'https://[^"]*')
+          AO=$(grep -A2 'export const AO_VIDEO' lib/assets.ts | grep -o 'https://[^"]*')
+          echo "hero=$HERO" >> "$GITHUB_OUTPUT"
+          echo "ao=$AO" >> "$GITHUB_OUTPUT"
+          echo "HERO: $HERO"
+          echo "AO:   $AO"
+          if [ -z "$HERO" ] || [ -z "$AO" ]; then
+            echo "::error::lib/assets.ts 에서 영상 URL을 찾지 못했습니다."
+            exit 1
+          fi
+
+      # 실패를 조용히 넘기지 않는다 — URL이 이미 만료됐다면 여기서 드러나야 한다.
+      - name: 영상 다운로드
+        run: |
+          mkdir -p public/videos
+          dl() {
+            local url="$1" out="$2"
+            echo "▶ $out ← $url"
+            curl -fSL --retry 3 --retry-delay 3 --max-time 300 -o "$out" "$url" || {
+              echo "::error::다운로드 실패 ($out) — URL이 만료됐을 수 있습니다."
+              exit 1
+            }
+            # HTML 에러 페이지가 200으로 내려오는 경우를 걸러낸다
+            local size
+            size=$(stat -c%s "$out")
+            if [ "$size" -lt 100000 ]; then
+              echo "::error::$out 크기가 ${size}B 로 비정상입니다(영상이 아닐 수 있음)."
+              exit 1
+            fi
+            file "$out"
+            echo "  크기: $(numfmt --to=iec "$size")"
+          }
+          dl "${{ steps.urls.outputs.hero }}" public/videos/hero.mp4
+          dl "${{ steps.urls.outputs.ao }}"   public/videos/always-on.mp4
+
+      - name: mp4 유효성 확인 (ffprobe)
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          for f in public/videos/hero.mp4 public/videos/always-on.mp4; do
+            echo "── $f"
+            ffprobe -v error -show_entries format=duration,size \
+              -show_entries stream=codec_name,width,height \
+              -of default=nw=1 "$f" || {
+                echo "::error::$f 가 유효한 영상이 아닙니다."
+                exit 1
+              }
+          done
+
+      - name: 커밋·푸시
+        run: |
+          git config user.name "pslab-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -f public/videos/hero.mp4 public/videos/always-on.mp4
+          if git diff --cached --quiet; then
+            echo "변경 없음 (이미 최신)"; exit 0
+          fi
+          git commit \
+            -m "chore(assets): 배경 영상 2개 자체 호스팅으로 이관" \
+            -m "외부 CloudFront URL은 만료 가능성이 있어 저장소로 가져온다. CI에서 원본을 받아 public/videos/ 에 커밋 (ffprobe로 유효성 확인)." \
+            -m "Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
+          for i in 1 2 3; do
+            git pull --rebase origin "${{ github.ref_name }}" && git push && exit 0
+            echo "push 재시도 $i"; sleep 3
+          done
+          echo "::error::push 실패"; exit 1

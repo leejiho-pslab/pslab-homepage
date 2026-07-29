@@ -43,14 +43,15 @@ lib/
   assets.ts            # 외부 자산 URL (영상·이미지 CDN) — 자체 호스팅 이관 지점
 ```
 
-## ⚠️ 자산 자체 호스팅 이관 (배포 후 권장 작업)
+## 자산 자체 호스팅
 
-현재 아래 자산은 외부 URL을 참조합니다. 방문자 브라우저에서는 정상 표시되지만, 안정성을 위해
-자체 호스팅으로 옮기는 것을 권장합니다. **이관 시 `lib/assets.ts` 파일만 수정**하면 됩니다.
-
-1. **배경 영상 2개** (히어로 / ALWAYS ON) — 현재 CloudFront 임시 URL. 만료 가능성 있음.
-   → 영상을 `public/videos/` 에 넣고 `HERO_VIDEO`, `AO_VIDEO` 값을 `/videos/hero.mp4` 등으로 교체.
-2. **포트폴리오 이미지 49개** — 현재 자사 imweb CDN(`cdn.imweb.me`) 참조.
+1. ✅ **배경 영상 2개** (히어로 / ALWAYS ON) — **2026-07-29 이관 완료.**
+   `public/videos/hero.mp4`, `public/videos/always-on.mp4` 를 서빙합니다.
+   이전에는 CloudFront 임시 URL을 참조해 만료 시 영상이 폴백으로 떨어질 위험이 있었습니다.
+   교체하려면 같은 이름으로 mp4 를 덮어쓰면 됩니다.
+   (이관 작업은 `.github/workflows/vendor-videos.yml` 로 수행 — 원본 URL에서 받아
+   유효성 확인 후 커밋. 재사용할 일이 없으면 삭제해도 됩니다.)
+2. ⚠️ **포트폴리오 이미지 49개** — 아직 자사 imweb CDN(`cdn.imweb.me`) 참조.
    → 이미지를 `public/portfolio/` 에 넣고 `IMWEB_BASE` 를 `/portfolio/` 로 교체(파일명 정리 필요).
 
 ## 연락처

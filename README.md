@@ -3,6 +3,10 @@
 16년차 온라인 종합광고대행사 **P.S.LAB(문제 해결 연구소)** 공식 홈페이지.
 SNS 채널 자동화 솔루션 **ALWAYS ON** 운영사.
 
+> **독립 프로젝트**: 이 저장소는 `leejiho-pslab` 계정의 다른 프로젝트(생활정보 블로그 자동발행,
+> `leejiho-pslab/site`)와 완전히 분리된 별도 저장소입니다. 코드·브랜치·배포·도메인이 전혀 겹치지
+> 않으며, `main` 브랜치 하나로 단독 운영됩니다.
+
 - **기술 스택**: Next.js 16 (App Router) · React 19 · TypeScript
 - **페이지(5)**: `/` 홈 · `/about` · `/portfolio` · `/always-on` · `/contact`
 - **디자인**: 디자인 시안(`.dc.html`)을 픽셀 충실도로 재구현. 디자인 토큰은 `app/globals.css` 상단 CSS 변수에 정의.

@@ -2,8 +2,10 @@ import type { MetadataRoute } from "next";
 import { SITE } from "@/lib/site";
 import { getAllArticles } from "@/lib/magazine";
 
-// 새 매거진 글이 자동으로 사이트맵에 포함되도록 1시간마다 재생성
-export const revalidate = 3600;
+// 예약 발행된 새 글이 항상 즉시 반영되도록 요청 시마다 생성
+// (ISR 캐시 탓에 사이트맵이 며칠간 갱신되지 않던 문제 수정 — 생성 비용은 md 파일 읽기 수준)
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = SITE.url;

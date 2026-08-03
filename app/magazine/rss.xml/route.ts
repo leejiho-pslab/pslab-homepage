@@ -2,7 +2,9 @@ import { getAllArticles } from "@/lib/magazine";
 import { SITE } from "@/lib/site";
 
 // 네이버 서치어드바이저 'RSS 제출'용 피드 — 새 글이 색인에 빨리 잡히도록
-export const revalidate = 3600;
+// 예약 발행 글을 놓치지 않게 요청 시마다 생성
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 function esc(s: string) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");

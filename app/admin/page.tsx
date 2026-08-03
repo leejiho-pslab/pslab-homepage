@@ -177,14 +177,34 @@ export default function AdminPage() {
               <div key={r.id} style={{ ...card, borderColor: fresh ? "#2ecc71" : "#e6e6e3", boxShadow: fresh ? "0 0 0 3px rgba(46,204,113,.15)" : "none" }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-                    <span style={{ fontWeight: 800, fontSize: 16 }}>{r.name || "(이름 없음)"}</span>
+                    <span style={{ fontWeight: 800, fontSize: 16 }}>{r.company || r.name || "(이름 없음)"}</span>
                     <span style={{ fontSize: 12, fontWeight: 700, padding: "3px 10px", borderRadius: 100, background: st.bg, color: st.fg }}>{st.label}</span>
                     {r.topic && <span style={{ fontSize: 12.5, color: "#8a8a86" }}>· {r.topic}</span>}
+                    {r.budget && (
+                      <span style={{ fontSize: 12, fontWeight: 700, padding: "3px 10px", borderRadius: 100, background: "#eef4ff", color: "#2b5fbf" }}>
+                        예산 {r.budget}
+                      </span>
+                    )}
                   </div>
                   <span style={{ fontSize: 12.5, color: "#b9b9b4" }}>{fmt(r.created_at)}</span>
                 </div>
-                <div style={{ marginTop: 8, fontSize: 14, color: "#3c3c39" }}>
-                  연락처: <b>{r.contact || "-"}</b>
+                <div style={{ marginTop: 8, fontSize: 14, color: "#3c3c39", display: "flex", flexWrap: "wrap", gap: "4px 18px" }}>
+                  {r.manager && (
+                    <span>
+                      담당자: <b>{r.manager}{r.position ? ` ${r.position}` : ""}</b>
+                    </span>
+                  )}
+                  {r.phone ? (
+                    <span>
+                      전화: <a href={`tel:${r.phone}`}><b>{r.phone}</b></a>
+                    </span>
+                  ) : null}
+                  {r.email ? (
+                    <span>
+                      이메일: <a href={`mailto:${r.email}`}><b>{r.email}</b></a>
+                    </span>
+                  ) : null}
+                  {!r.phone && !r.email && <span>연락처: <b>{r.contact || "-"}</b></span>}
                 </div>
                 {r.message && (
                   <p style={{ margin: "10px 0 0", fontSize: 14.5, lineHeight: 1.65, color: "#101010", whiteSpace: "pre-wrap" }}>{r.message}</p>

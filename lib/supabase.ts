@@ -16,4 +16,11 @@ export type Inquiry = {
   topic: string | null;
   message: string | null;
   status: "new" | "read" | "replied" | string;
+  // 확장 항목 (구 스키마에서는 없을 수 있음)
+  company?: string | null;
+  manager?: string | null;
+  position?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  budget?: string | null;
 };

@@ -94,7 +94,7 @@ def front(c):
     c.setFont("P-Medium", 6.0)
     c.setFillColor(K45)
     x, y = T(90 - LEFT, 12.6)
-    c.drawRightString(x, y, "16년차 온라인 종합광고대행사")
+    c.drawRightString(x, y, "브랜드의 다양한 문제를 해결합니다.")
 
     # --- 이름 + 직급 ---
     base = 27.0

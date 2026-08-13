@@ -242,3 +242,111 @@ textarea.field { resize: vertical; }
   /* 포트폴리오 그리드: 모바일 2열로 한눈에 여러 개 */
   .grid-mob-2 { grid-template-columns: repeat(2, 1fr) !important; gap: 22px 12px !important; }
 }
+
+/* ===========================================================
+   온라인 명함 (/card) — 모바일 우선, 한 손에 들어오는 카드 한 장
+   =========================================================== */
+.card-page {
+  min-height: 100dvh;
+  padding: 22px 16px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: linear-gradient(180deg, #f2f2ef 0%, var(--bg) 260px);
+}
+.card-sheet {
+  width: 100%;
+  max-width: 440px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 18px 50px -22px rgba(0, 0, 0, 0.28);
+}
+
+/* 브랜드 면 — 인쇄 명함 뒷면과 동일한 검정 */
+.card-hero { background: #0c0c0c; padding: 34px 26px 26px; text-align: center; }
+.card-hero-logo { width: 172px; max-width: 62%; height: auto; color: #fff; display: inline-block; }
+.card-hero-line {
+  margin: 20px 0 0;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #6f6f6a;
+}
+
+/* 이름 블록 */
+.card-id { padding: 26px 24px 24px; border-bottom: 1px solid var(--border); }
+.card-id h1 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+}
+.card-id h1 span { font-size: 15px; font-weight: 600; color: var(--muted); letter-spacing: 0; }
+.card-org { margin: 9px 0 0; font-size: 14.5px; font-weight: 700; }
+.card-role { margin: 5px 0 18px; font-size: 12.5px; line-height: 1.6; color: var(--muted); word-break: keep-all; }
+
+.card-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 100px;
+  font-size: 14.5px;
+  font-weight: 800;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.2s, border-color 0.2s;
+}
+.card-btn:active { transform: scale(0.98); }
+.card-btn-solid { background: #101010; color: #fff; border: 1px solid #101010; }
+.card-btn-ghost { background: var(--card); color: var(--text); border: 1px solid var(--border2); }
+
+.card-qr-wrap { margin-top: 14px; padding: 16px; border: 1px solid var(--border); border-radius: 14px; text-align: center; }
+.card-qr-wrap img { color: #101010; display: block; margin: 0 auto; }
+.card-qr-wrap p { margin: 10px 0 0; font-size: 11.5px; color: var(--muted); }
+
+.card-copy-row { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 14px; font-size: 12.5px; }
+.card-copy-row button {
+  background: none; border: none; padding: 4px 2px; cursor: pointer;
+  font-family: inherit; font-size: 12.5px; font-weight: 600; color: var(--muted);
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.card-copy-row span { color: var(--hint); }
+
+/* 연락 수단 목록 */
+.card-links { display: flex; flex-direction: column; }
+.card-links a {
+  display: flex; align-items: center; gap: 14px;
+  padding: 15px 24px; border-bottom: 1px solid #f2f2f0;
+  transition: background 0.18s;
+}
+.card-links a:active { background: #f7f7f5; }
+.card-link-ico { width: 21px; height: 21px; flex: none; color: #101010; }
+.card-link-txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.card-link-txt b { font-size: 14.5px; font-weight: 700; }
+.card-link-txt i { font-style: normal; font-size: 12.5px; color: var(--muted); overflow-wrap: anywhere; }
+.card-link-arw { color: var(--hint); font-size: 13px; flex: none; }
+
+/* 하단 CTA */
+.card-cta { padding: 24px; background: #fafaf8; }
+.card-cta p { margin: 0 0 14px; font-size: 14.5px; font-weight: 700; text-align: center; word-break: keep-all; }
+.card-cta div { display: flex; flex-direction: column; gap: 9px; }
+
+.card-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 15px 24px; font-size: 11.5px; color: var(--muted);
+  border-top: 1px solid var(--border);
+}
+.card-foot a { font-family: var(--font-mono); font-weight: 700; letter-spacing: 0.04em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .card-btn { transition: none; }
+  .card-btn:active { transform: none; }
+}

@@ -32,4 +32,5 @@ export const SOCIAL = [
   { label: "Instagram", href: "https://www.instagram.com/_pslab" },
   { label: "YouTube", href: "https://www.youtube.com/@pslab2026" },
   { label: "Threads", href: "https://www.threads.com/@_pslab" },
+  { label: "Blog", href: "https://pslab2026.blogspot.com" },
 ];

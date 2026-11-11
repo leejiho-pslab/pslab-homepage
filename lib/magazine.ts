@@ -35,7 +35,7 @@ function parseFrontmatter(raw: string): { meta: Record<string, string>; body: st
 export function getAllArticles(): Article[] {
   let files: string[] = [];
   try {
-    files = fs.readdirSync(DIR).filter((f) => f.endsWith(".md"));
+    files = fs.readdirSync(DIR).filter((f) => f.endsWith(".md") && f !== "GUIDE.md"); // GUIDE.md = 운영 가이드(글 아님)
   } catch {
     return [];
   }
@@ -110,7 +110,47 @@ export function parseBlocks(md: string): Block[] {
   return out;
 }
 
-// 인라인 **굵게** 분해 (링크는 본문에서 미사용 — 필요 시 확장)
+// 인라인 **굵게** 분해
 export function splitBold(text: string): { bold: boolean; t: string }[] {
   return text.split(/\*\*([^*]+)\*\*/g).map((t, i) => ({ bold: i % 2 === 1, t }));
+}
+
+// 인라인 링크 [글자](주소) 분해 — 사이트 안 주소(/always-on 등)와 https 주소만 링크로 만든다.
+// 검색엔진·AI 가 글과 서비스 페이지를 같은 회사의 것으로 엮어 읽도록 내부 링크를 쓴다.
+export function splitLinks(text: string): { href?: string; t: string }[] {
+  const out: { href?: string; t: string }[] = [];
+  const re = /\[([^\]]+)\]\(((?:\/|https:\/\/)[^)\s]*)\)/g;
+  let last = 0;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text))) {
+    if (m.index > last) out.push({ t: text.slice(last, m.index) });
+    out.push({ href: m[2], t: m[1] });
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) out.push({ t: text.slice(last) });
+  return out;
+}
+
+// 링크·굵게 표시를 걷어낸 순수 텍스트 (구조화 데이터·요약용)
+export function plainText(text: string): string {
+  return text.replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").replace(/\*\*([^*]+)\*\*/g, "$1").trim();
+}
+
+// '## 자주 묻는 질문' 구간의 **Q. 질문** + 다음 문단(답) → FAQPage 구조화 데이터 재료
+export function extractFaq(md: string): { q: string; a: string }[] {
+  const blocks = parseBlocks(md);
+  const start = blocks.findIndex((b) => b.type === "h2" && /자주 묻는 질문|FAQ/i.test(b.text));
+  if (start < 0) return [];
+  const out: { q: string; a: string }[] = [];
+  for (let i = start + 1; i < blocks.length; i++) {
+    const b = blocks[i];
+    if (b.type === "h2") break;
+    if (b.type !== "p") continue;
+    const m = b.text.match(/^\*\*Q\.\s*(.+?)\*\*\s*(.*)$/);
+    if (!m) continue;
+    let a = m[2];
+    if (!a && blocks[i + 1]?.type === "p") a = (blocks[++i] as { text: string }).text;
+    if (a) out.push({ q: plainText(m[1]), a: plainText(a.replace(/^A\.\s*/, "")) });
+  }
+  return out;
 }

@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumb } from "@/lib/schema";
 import { SITE, BROCHURE } from "@/lib/site";
-import { getAllArticles, getArticle, parseBlocks, splitBold, type Block } from "@/lib/magazine";
+import { getAllArticles, getArticle, parseBlocks, splitBold, splitLinks, extractFaq, type Block } from "@/lib/magazine";
 
 // 발행일이 지난 글이 자동 공개되도록 1시간마다 재생성
 export const revalidate = 3600;
@@ -34,8 +34,22 @@ function fmt(d: string) {
   return `${y}. ${Number(m)}. ${Number(day)}.`;
 }
 
+function renderBold(text: string, k: string) {
+  return splitBold(text).map((s, i) => (s.bold ? <strong key={k + i}>{s.t}</strong> : <span key={k + i}>{s.t}</span>));
+}
+
 function renderText(text: string) {
-  return splitBold(text).map((s, i) => (s.bold ? <strong key={i}>{s.t}</strong> : <span key={i}>{s.t}</span>));
+  return splitLinks(text).map((s, i) =>
+    s.href ? (
+      s.href.startsWith("/") ? (
+        <Link key={i} href={s.href} style={{ fontWeight: 700, borderBottom: "1.5px solid currentColor" }}>{renderBold(s.t, `l${i}-`)}</Link>
+      ) : (
+        <a key={i} href={s.href} target="_blank" rel="noopener" style={{ fontWeight: 700, borderBottom: "1.5px solid currentColor" }}>{renderBold(s.t, `l${i}-`)}</a>
+      )
+    ) : (
+      <span key={i}>{renderBold(s.t, `t${i}-`)}</span>
+    )
+  );
 }
 
 function renderBlock(b: Block, i: number) {
@@ -79,11 +93,23 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     publisher: { "@id": `${SITE.url}/#org` },
     mainEntityOfPage: `${SITE.url}/magazine/${a.slug}`,
     keywords: a.tags.join(", "),
+    about: a.tags.map((t) => ({ "@type": "Thing", name: t })),
+    mentions: [{ "@id": `${SITE.url}/#org` }],
   };
+  const faq = extractFaq(a.body);
+  const faqLd =
+    faq.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+        }
+      : null;
 
   return (
     <main>
       <JsonLd data={articleLd} />
+      {faqLd && <JsonLd data={faqLd} />}
       <JsonLd data={breadcrumb([{ name: "홈", path: "/" }, { name: "Magazine", path: "/magazine" }, { name: a.title, path: `/magazine/${a.slug}` }])} />
       <Header active="/magazine" />
 

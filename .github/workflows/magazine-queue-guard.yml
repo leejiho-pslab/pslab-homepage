@@ -1,0 +1,50 @@
+name: magazine queue guard
+
+# 매거진은 하루 1편 '예약 발행'(content/magazine/*.md 의 date 가 오늘이 되면 자동 공개)으로 돈다.
+# 이 워크플로는 앞으로 7일 안에 빈 날이 생기면 이슈를 열어 알린다(이슈 알림 메일 = 운영자 알림).
+# 글을 채워 다시 통과하면 열린 경보 이슈를 닫는다. 공개 저장소라 실행 비용은 무료.
+on:
+  schedule:
+    - cron: "23 0 * * *"   # 매일 09:23 KST
+  push:
+    branches: [main]
+    paths: ["content/magazine/**", "scripts/check-magazine.mjs"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: magazine-guard
+  cancel-in-progress: true
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            content/magazine
+            scripts
+      - name: 글 기준 검사
+        run: node scripts/check-magazine.mjs
+      - name: 예약 큐 점검 → 경보 이슈
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          out=$(node scripts/check-magazine.mjs --queue 7)
+          echo "$out"
+          missing=$(echo "$out" | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const j=JSON.parse(s);console.log(j.missing.join(", "))})')
+          last=$(echo "$out" | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>console.log(JSON.parse(s).lastScheduled))')
+          title="[매거진] 예약 글 부족 — 하루 1편 발행이 끊길 예정"
+          num=$(gh issue list --state open --search "in:title \"$title\"" --json number --jq '.[0].number')
+          if [ -n "$missing" ]; then
+            body=$(printf '앞으로 7일 중 예약 글이 없는 날: **%s**\n\n마지막 예약일: %s\n\n채우는 법: content/magazine/GUIDE.md 순서대로 다음 주제 글을 써서 date 를 빈 날로 지정해 main 에 올린다.' "$missing" "$last")
+            if [ -z "$num" ]; then gh issue create --title "$title" --body "$body"; else gh issue comment "$num" --body "$body"; fi
+          elif [ -n "$num" ]; then
+            gh issue close "$num" --comment "7일치 예약 글이 모두 채워져 경보를 닫습니다 (마지막 예약일 $last)."
+          fi

@@ -16,6 +16,7 @@ export const ORG = {
     "https://www.instagram.com/_pslab",
     "https://www.youtube.com/@pslab2026",
     "https://www.threads.com/@_pslab",
+    "https://pslab2026.blogspot.com",
   ],
   description:
     "16년차 온라인 종합광고대행사. 퍼포먼스 마케팅·브랜딩 컨설팅·콘텐츠 제작과 SNS 채널 자동화 솔루션 ALWAYS ON을 제공합니다.",

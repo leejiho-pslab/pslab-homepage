@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: a.title,
     description: a.description,
-    keywords: [...a.tags, "P.S.LAB", "얼웨이즈온", "ALWAYS ON"],
+    keywords: [...new Set([...a.tags, "pslab", "P.S.LAB", "문제해결연구소", "피에스랩", "얼웨이즈온", "ALWAYS ON"])],
     alternates: { canonical: `/magazine/${a.slug}` },
     openGraph: { title: a.title, description: a.description, url: `/magazine/${a.slug}`, type: "article" },
   };
@@ -89,7 +89,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     description: a.description,
     datePublished: a.date,
     inLanguage: "ko-KR",
-    author: { "@type": "Organization", name: "P.S.LAB", url: SITE.url },
+    author: { "@type": "Organization", name: "P.S.LAB(pslab) 문제해결연구소", url: SITE.url },
     publisher: { "@id": `${SITE.url}/#org` },
     mainEntityOfPage: `${SITE.url}/magazine/${a.slug}`,
     keywords: a.tags.join(", "),
@@ -117,6 +117,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", marginBottom: 22 }}>
           <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: ".08em", background: "#101010", color: "#fff", borderRadius: 100, padding: "4px 12px" }}>{a.category}</span>
           <span style={{ fontSize: 13, color: "var(--hint)", fontFamily: "var(--font-mono)" }}>{fmt(a.date)}</span>
+          <span style={{ fontSize: 13, color: "var(--hint)" }}>글 · P.S.LAB(pslab) 문제해결연구소</span>
         </div>
         <h1 style={{ margin: 0, fontSize: "clamp(28px,4vw,44px)", fontWeight: 800, lineHeight: 1.25, letterSpacing: "-.03em" }}>{a.title}</h1>
         <p style={{ margin: "18px 0 0", fontSize: 17, lineHeight: 1.75, color: "var(--muted)" }}>{a.description}</p>

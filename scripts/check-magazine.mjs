@@ -54,6 +54,15 @@ for (const p of posts) {
   const n = visible(p.body);
   if (n < 1500) problems.push(`${where}: 본문 ${n}자 — 1,500자 이상`);
   if (!/P\.S\.LAB/.test(p.body) || !/문제해결연구소/.test(p.body)) problems.push(`${where}: 본문에 'P.S.LAB'과 '문제해결연구소'가 모두 있어야 함(회사 연결)`);
+  // 브랜드 검색어(운영자 지시 2026-11-24): 'P.S.LAB' 은 검색엔진이 'pslab' 으로 읽지 못할 수 있어 글자 그대로 넣는다
+  const bodyText = p.body.replace(/\]\([^)]*\)/g, "]"); // 링크 주소 안의 pslab 은 세지 않는다
+  if (!/pslab/i.test(bodyText)) problems.push(`${where}: 본문에 'pslab' 글자 필요(링크 주소 제외) — 예) P.S.LAB(pslab·문제해결연구소)`);
+  if (p.description && !/pslab|문제해결연구소/i.test(p.description)) problems.push(`${where}: 설명에 'pslab' 또는 '문제해결연구소' 필요`);
+  const tagList = String(p.tags || "").split(",").map((t) => t.trim());
+  for (const t of ["pslab", "문제해결연구소"]) if (!tagList.includes(t)) problems.push(`${where}: tags 에 '${t}' 필요`);
+  const core = tagList[0] || "";
+  const intro = p.body.split(/^## /m)[0];
+  if (core && !intro.replace(/\s/g, "").includes(core.replace(/\s/g, ""))) problems.push(`${where}: 첫 소제목 전 도입부에 대표 키워드 '${core}' 필요`);
   if (!/\]\(\/(always-on|about|contact|portfolio|magazine)/.test(p.body)) problems.push(`${where}: 사이트 안 링크 1개 이상`);
   const faqCount = (p.body.split(/^## 자주 묻는 질문/m)[1] || "").match(/^\*\*Q\./gm)?.length || 0;
   if (faqCount < 3) problems.push(`${where}: '## 자주 묻는 질문'에 **Q. 3개 이상(지금 ${faqCount})`);

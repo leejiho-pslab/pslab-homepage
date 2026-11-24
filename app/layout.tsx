@@ -7,11 +7,11 @@ import JsonLd from "@/components/JsonLd";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "P.S.LAB — 문제 해결 연구소 | 온라인 종합광고대행사",
-    template: "%s — P.S.LAB",
+    default: "P.S.LAB(pslab) 문제해결연구소 | 온라인 종합광고대행사·SNS 채널 대행·AX 컨설팅",
+    template: "%s — P.S.LAB(pslab) 문제해결연구소",
   },
   description:
-    "16년차 온라인 종합광고대행사 P.S.LAB(문제 해결 연구소). 네이버·구글·메타 퍼포먼스 마케팅, 브랜딩 컨설팅, 콘텐츠·영상 제작과 SNS 채널 자동화 솔루션 ALWAYS ON으로 브랜드의 문제를 풀고 성과로 증명합니다.",
+    "16년차 온라인 종합광고대행사 P.S.LAB(pslab·문제해결연구소). 네이버·구글·메타 퍼포먼스 마케팅, 브랜딩 컨설팅, 콘텐츠·영상 제작과 SNS 채널 자동화 솔루션 ALWAYS ON으로 브랜드의 문제를 풀고 성과로 증명합니다.",
   applicationName: "P.S.LAB",
   authors: [{ name: "P.S.LAB" }],
   creator: "P.S.LAB",
@@ -22,7 +22,14 @@ export const metadata: Metadata = {
     "피에스랩",
     "문제 해결 연구소",
     "문제해결연구소",
+    "광고대행",
+    "광고대행사",
+    "온라인 광고대행",
     "온라인 광고대행사",
+    "SNS 채널 대행",
+    "SNS 운영 대행",
+    "AX 컨설팅",
+    "AI 솔루션",
     "종합광고대행사",
     "퍼포먼스 마케팅",
     "브랜딩 컨설팅",
@@ -49,7 +56,7 @@ export const metadata: Metadata = {
     locale: "ko_KR",
     url: SITE.url,
     siteName: "P.S.LAB",
-    title: "P.S.LAB — 문제 해결 연구소 | 온라인 종합광고대행사",
+    title: "P.S.LAB(pslab) 문제해결연구소 | 온라인 종합광고대행사·SNS 채널 대행·AX 컨설팅",
     description:
       "16년차 온라인 종합광고대행사. 퍼포먼스 마케팅·브랜딩 컨설팅·콘텐츠 제작 + SNS 채널 자동화 솔루션 ALWAYS ON.",
   },

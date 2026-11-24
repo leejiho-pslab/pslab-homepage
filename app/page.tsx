@@ -59,7 +59,7 @@ export default function Home() {
             </a>
           </Reveal>
           <Reveal delay={340} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16, borderTop: "1px solid rgba(16,16,16,.18)", paddingTop: 22 }}>
-            <p style={{ margin: 0, fontSize: 17, color: "var(--sub)", fontWeight: 500 }}>16년차 온라인 종합광고대행사 · ALWAYS ON 운영사</p>
+            <p style={{ margin: 0, fontSize: 17, color: "var(--sub)", fontWeight: 500 }}>P.S.LAB(pslab) 문제해결연구소 · 16년차 온라인 종합광고대행사 · ALWAYS ON 운영사</p>
             <div style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: "var(--muted)", letterSpacing: ".14em", fontWeight: 600 }}>
               SCROLL
               <span style={{ display: "block", width: 1, height: 26, background: "#101010", animation: "scrollcue 1.8s infinite" }} />
